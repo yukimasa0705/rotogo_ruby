@@ -19,8 +19,14 @@ roto5=(1..20).to_a.sample(5)
       puts"範囲内の数を入力してください"
       next
     else
-      break
-    end  
+      if buy.include? (select_num)
+        puts"入力値が重複してますよ。もったいない"
+        next
+      else
+        break
+      end
+    end
+    
   end
   buy.push(select_num)
 end
