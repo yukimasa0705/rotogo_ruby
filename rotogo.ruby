@@ -1,42 +1,29 @@
-hit=0
 buy=[]
 roto5=(1..20).to_a.sample(5)
-5.times do
-  while true
-    print"1~20の中で好きな数を選んでください>>"
-    # ユーザーが選んだ数を取得
-    select_num = gets.chomp
-    # 文字列を整数に変換して再び文字列に戻し、元の入力と一致するかをチェック
-    if select_num.to_i.to_s != select_num
-      # 整数以外（文字列や小数）が入力された場合
-      puts "整数を入力してください"
-      next # 再入力を促す
-    else
-      # 整数が入力された場合、整数に変換
-      select_num=select_num.to_i
-    end
-    if select_num < 1 || select_num > 20
-      puts"範囲内の数を入力してください"
-      next # 再入力を促す
-    else
-      if buy.include? (select_num)
-        puts"入力値が重複してますよ。もったいない"
-        next # 再入力を促す
-      else
-        break # wheieのループを抜ける
-      end
-    end
-    
+# buyのサイズが５になるまでと制限しコード省略
+while buy.size<5
+  print"1~20の中で好きな数を選んでください>>"
+  # ユーザーが選んだ数を取得
+  begin
+    select_num = Integer(gets.chomp)
+    # 整数が1~20の範囲内か？unlessを使うことで範囲外であるかを確認
+    raise "範囲内の数を入力してください" unless (1..20).include?(select_num)
+    # 重複していないか
+    raise "重複してますよ。もったいない" if buy.include? (select_num)
+  # 整数が入力されたか
+  rescue ArgumentError
+    puts "整数を入力してください"
+    next
+  rescue => e
+    puts e.message
+    next
   end
-  buy.push(select_num)
+  buy<<select_num
 end
+  
 
-# 買った番号のうち当たった数がいくつかを数える
-for i in 0..4
-  if roto5.include? (buy[i])
-    hit+=1
-  end
-end
+# 買った番号と当選番号の積集合の要素数を取得し、当たりの数とする 
+hit=(buy & roto5).size
 
 puts"あなたが買った番号はこちらでした"
 puts buy.join(", ")
@@ -47,14 +34,11 @@ puts roto5.join(", ")
 case hit
 when 0
   puts"残念でした"
-when 1
-  puts"よかったやん（1個一致：約 44.0%）"
-when 2
-  puts"めでてーな(2個一致：約 29.3%)"
-when 3
-  puts"たいしたもんや(3個一致：約 6.77%)"
-when 4
-  puts"すげえやん(4個一致：約 0.484%)"
-when 5
-  puts"奇跡起きたな(5個一致：約 0.00645%)"
+# thenを使いワンライナー化
+when 1 then puts"よかったやん（1個一致：約 44.0%）"
+when 2 then puts"めでてーな(2個一致：約 29.3%)"
+when 3 then puts"たいしたもんや(3個一致：約 6.77%)"
+when 4 then puts"すげえやん(4個一致：約 0.484%)"
+when 5 then puts"奇跡起きたな(5個一致：約 0.00645%)"
 end
+  
