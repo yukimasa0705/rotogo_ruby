@@ -1,10 +1,12 @@
 # Roto5 クラスと Display モジュールを読み込む
 require './rotogo_Roto5'
 require './rotogo_Display'
-require './rotogo_Display_prize'
+require './rotogo_DisplayPrize'
+require './rotogo_VirtualCurrency'
 
 # 複数回プレイできるよう変更
-while true
+loop do
+  pur = VirtualCurrency.purchase  # ← ここで `pur` を取得！
 # メソッドの戻り値を変数に格納
   roto5_numbers=Roto5.roto5
   buy_numbers=Roto5.buy
@@ -12,9 +14,12 @@ while true
 
   # Display モジュールの show_result メソッドを呼び出す
   Display.show_result(buy_numbers, roto5_numbers, hit)
-  # Display_Prize モジュールの show_prize メソッドを呼び出す
-  Display_Prize.show_prize(hit)
-  while true
+  # DisplayPrize モジュールの show_prize メソッドを呼び出す
+  DisplayPrize.show_prize(hit,pur)
+  
+  answer = ""  # 変数をループの外で定義
+
+  loop do
     print "もう一度しますか？(y/n)>>"
     answer = gets.chomp
     unless answer == "y" || answer == "n"
