@@ -1,6 +1,7 @@
 # Roto5 クラスと Display モジュールを読み込む
 require './rotogo_Roto5'
 require './rotogo_Display'
+require './rotogo_Display_prize'
 
 # 複数回プレイできるよう変更
 while true
@@ -11,6 +12,8 @@ while true
 
   # Display モジュールの show_result メソッドを呼び出す
   Display.show_result(buy_numbers, roto5_numbers, hit)
+  # Display_Prize モジュールの show_prize メソッドを呼び出す
+  Display_Prize.show_prize(hit)
   while true
     print "もう一度しますか？(y/n)>>"
     answer = gets.chomp
