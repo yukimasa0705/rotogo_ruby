@@ -1,3 +1,4 @@
+require './rotogo_VirtualCurrency'
 #賞金を表示するモジュールを定義
 module DisplayPrize
   #hitに応じた賞金額を表示するメソッド
@@ -13,5 +14,6 @@ module DisplayPrize
     puts"賞金額は#{mag*pur}hanyです。"
     puts"なお。賞金額は100hany(hanyは仮想通貨の単位)に"
     puts"当たった数に基づいた倍率を掛けて計算しています"
+    VirtualCurrency.poss+=mag*pur
   end
 end
