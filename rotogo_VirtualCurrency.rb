@@ -10,6 +10,10 @@ class VirtualCurrency
   # 購入メソッド
   def self.purchase
     loop do
+      if @@poss <= 0  # 所持金がゼロかそれ以下ならゲーム終了
+        puts "所持金がなくなったので、ゲームを終了します。"
+        exit  # ゲーム終了
+      end
       puts "現在の所持金は #{@@poss} 円です。"  # 現在の所持金を表示
       print"いくら購入しますか？>>"
       begin
@@ -17,6 +21,7 @@ class VirtualCurrency
         # 1円以上の購入を促す
       raise"自然数を書いてください" if pur<1
       raise"所持金が足りません" if pur>@@poss
+      @@poss -= pur  # 購入後に所持金を減らす
         return pur
       rescue ArgumentError
         # 文字、小数を書いた場合のエラー処理
