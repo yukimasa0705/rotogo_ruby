@@ -10,6 +10,7 @@ class VirtualCurrency
   # 購入メソッド
   def self.purchase
     loop do
+      puts "現在の所持金は #{@@poss} 円です。"  # 現在の所持金を表示
       print"いくら購入しますか？>>"
       begin
         pur=Integer(gets.chomp)
